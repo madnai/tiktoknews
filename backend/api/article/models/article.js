@@ -35,7 +35,13 @@ module.exports = {
 
   // After creating a value.
   // Fired after an `insert` query.
-  // afterCreate: async (model, attrs, options) => {},
+  afterCreate: async (model, attrs, options) => {
+    axios
+      .post(strapi.config.currentEnvironment.staticWebsiteBuildURL, {})
+      .catch(() => {
+        // Ignore
+      });
+  },
 
   // Before updating a value.
   // Fired before an `update` query.
@@ -51,5 +57,11 @@ module.exports = {
 
   // After destroying a value.
   // Fired after a `delete` query.
-  // afterDestroy: async (model, attrs, options) => {}
+  afterDestroy: async (model, attrs, options) => {
+    axios
+      .post(strapi.config.currentEnvironment.staticWebsiteBuildURL, {})
+      .catch(() => {
+        // Ignore
+      });
+  }
 };

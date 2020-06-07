@@ -5,4 +5,19 @@
  * to customize this model
  */
 
-module.exports = {};
+module.exports = {
+    afterCreate: async (model, attrs, options) => {
+        axios
+          .post(strapi.config.currentEnvironment.staticWebsiteBuildURL, {})
+          .catch(() => {
+            // Ignore
+          });
+      },
+      afterDestroy: async (model, attrs, options) => {
+        axios
+          .post(strapi.config.currentEnvironment.staticWebsiteBuildURL, {})
+          .catch(() => {
+            // Ignore
+          });
+      }
+};

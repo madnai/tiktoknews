@@ -45,6 +45,31 @@ const isFirstRun = async () => {
   return !initHasRun;
 };
 
+const setDefaultFileUploader = async () => {
+  if (strapi.config.environment !== "production") {
+    return;
+  }
+  const pluginStore = strapi.store({
+    environment: strapi.config.environment,
+    type: "plugin",
+    name: "upload",
+  });
+  const config = await pluginStore.get({ key: "provider" });
+  await pluginStore.set({
+    key: "provider",
+    value: {
+      ...config,
+      ...{
+        provider: "cloudinary",
+        name: "Cloudinary",
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+      },
+    },
+  });
+};
+
 const getFilesizeInBytes = filepath => {
   var stats = fs.statSync(filepath);
   var fileSizeInBytes = stats["size"];
@@ -87,5 +112,6 @@ module.exports = async () => {
   if (shouldSetDefaultPermissions) {
     await setDefaultPermissions();
     await createSeedData();
+    await setDefaultFileUploader();
   }
 };

@@ -1,14 +1,15 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Commento from '../components/Commento'
+
 import ReactMarkdown from "react-markdown"
 import Moment from "react-moment"
+import Commento from '../components/Commento'
+
 import Layout from "../components/layout"
 
-
 export const query = graphql`
-  query ArticleQuery($id: Int!) {
-    strapiArticle(strapiId: { eq: $id }) {
+  query TipyQuery($id: Int!) {
+    strapiTipy(strapiId: { eq: $id }) {
       strapiId
       title
       content
@@ -20,8 +21,9 @@ export const query = graphql`
   }
 `
 
-const Article = ({ data }) => {
-  const article = data.strapiArticle
+const Tipy = ({ data }) => {
+  const article = data.strapiTipy
+
   return (
     <Layout>
       <div>
@@ -37,7 +39,7 @@ const Article = ({ data }) => {
 
         <div className="uk-section">
           <div className="uk-container uk-container-small">
-            <ReactMarkdown source={article.content} escapeHtml={false}/>
+            <ReactMarkdown source={article.content} />
             <p>
               <Moment format="MMM Do YYYY">{article.published_at}</Moment>
             </p>
@@ -49,4 +51,4 @@ const Article = ({ data }) => {
   )
 }
 
-export default Article
+export default Tipy

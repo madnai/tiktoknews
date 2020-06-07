@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "connection": "default",
-  "collectionName": "articles",
+  "collectionName": "Tipy",
   "info": {
-    "name": "article"
+    "name": "Tipy"
   },
   "options": {
     "increments": true,
@@ -11,26 +10,24 @@
   },
   "attributes": {
     "title": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "content": {
-      "type": "richtext",
-      "required": true
+      "type": "richtext"
     },
     "image": {
       "model": "file",
       "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
       "plugin": "upload",
-      "required": true
+      "required": false
     },
     "published_at": {
-      "type": "date",
-      "required": true
-    },
-    "category": {
-      "model": "category",
-      "via": "articles"
+      "type": "date"
     },
     "short_description": {
       "type": "text"

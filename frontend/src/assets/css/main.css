@@ -21,7 +21,8 @@ h1 {
 
 #banner {
   margin: 20px !important;
-  height: 800px !important;
+  height: 300px !important;
+  border-radius: 5px;
 }
 
 #editor {
@@ -38,4 +39,115 @@ h1 {
 img:hover {
   opacity: 1 !important;
   transition: opacity 0.25s cubic-bezier(0.39, 0.575, 0.565, 1) !important;
+}
+
+.logo {
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 20px;
+  max-width: 200px;
+}
+
+.nav-links {
+  display: flex;
+  /* background-color: red; */
+  justify-content: space-around;
+  width: 30%;
+}
+
+.header-container {
+  width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 70px;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(34,90,89,0.2);
+    z-index: 9;
+}
+
+.header-container .header-content {
+  display: flex;
+  height: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.header-container .header-content .logo-wrapper {
+  display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.logo-container {
+  position: relative;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.menu-item-link {
+  color: #3f3f3f;
+  transform: scale(0.75);
+  -webkit-transform: scale(0.75);
+  -ms-transform: scale(0.75);
+  transition: all 0.3s ease;
+}
+
+.menu-wrapper {
+
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  list-style: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-right {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.menu-item-link-active {
+  transform: none;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -webkit-transform: none;
+  -ms-transform: none;
 }

@@ -1,32 +1,36 @@
 import React from "react"
-import Card from "./card"
+import CardComponent from "./card"
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
-const Articles = ({ articles }) => {
-  const leftArticlesCount = Math.ceil(articles.length / 5)
-  const leftArticles = articles.slice(0, leftArticlesCount)
-  const rightArticles = articles.slice(leftArticlesCount, articles.length)
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
+
+const Articles = ({ articles, page }) => {
+  const classes = useStyles();
+
 
   return (
-    <div>
-      <div className="uk-child-width-1-2" data-uk-grid>
-        <div>
-          {leftArticles.map((article, i) => {
-            return (
-              <Card article={article} key={`article__${article.node.id}`} />
-            )
-          })}
-        </div>
-        <div>
-          <div className="uk-child-width-1-2@m uk-grid-match" data-uk-grid>
-            {rightArticles.map((article, i) => {
-              return (
-                <Card article={article} key={`article__${article.node.id}`} />
-              )
-            })}
-          </div>
-        </div>
-      </div>
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        {articles.map((article, i) => {
+          return (
+        <Grid item xs={12} lg={4} md={6} key={i}>
+          <CardComponent article={article} page={page} key={`article__${article.node.id}`}/>
+        </Grid>
+          )
+        })}
+      </Grid>
     </div>
+
   )
 }
 

@@ -1,3 +1,6 @@
+const accents = require('remove-accents');
+
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const result = await graphql(
@@ -7,13 +10,15 @@ exports.createPages = async ({ graphql, actions }) => {
           edges {
             node {
               strapiId
+              title
             }
           }
         }
-        categories: allStrapiCategory {
+        tipy: allStrapiTipy {
           edges {
             node {
               strapiId
+              title
             }
           }
         }
@@ -27,24 +32,28 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Create blog articles pages.
   const articles = result.data.articles.edges
-  const categories = result.data.categories.edges
+  const tipy = result.data.tipy.edges
 
   articles.forEach((article, index) => {
+
     createPage({
-      path: `/article/${article.node.strapiId}`,
+      path: `/news/${accents(article.node.title).replace(/\s+/g, '-').replace(/\?/g,'')}`,
       component: require.resolve("./src/templates/article.js"),
       context: {
         id: article.node.strapiId,
+        title: article.node.title
       },
     })
   })
 
-  categories.forEach((category, index) => {
+  tipy.forEach((article, index) => {
+
     createPage({
-      path: `/category/${category.node.strapiId}`,
-      component: require.resolve("./src/templates/category.js"),
+      path: `/tipy/${accents(article.node.title).replace(/\s+/g, '-').replace(/\?/g,'')}`,
+      component: require.resolve("./src/templates/tipy.js"),
       context: {
-        id: category.node.strapiId,
+        id: article.node.strapiId,
+        title: article.node.title
       },
     })
   })

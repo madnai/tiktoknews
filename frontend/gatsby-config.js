@@ -17,6 +17,8 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    `gatsby-plugin-sass`,
+    "gatsby-plugin-material-ui",
     {
       resolve: "gatsby-source-strapi",
       options: {
@@ -24,7 +26,8 @@ module.exports = {
         contentTypes: [
           // List of the Content Types you want to be able to request from Gatsby.
           "article",
-          "category",
+          "menu",
+          "tipy"
         ],
         queryLimit: 1000,
       },
@@ -36,7 +39,7 @@ module.exports = {
       options: {
         name: "gatsby-starter-default",
         short_name: "starter",
-        start_url: "/",
+        start_url: "/news",
         background_color: "#663399",
         theme_color: "#663399",
         display: "minimal-ui",

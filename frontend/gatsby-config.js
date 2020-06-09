@@ -32,6 +32,20 @@ module.exports = {
         queryLimit: 1000,
       },
     },
+    {
+      resolve: 'gatsby-plugin-firebase',
+      options: {
+        credentials: {
+          apiKey: 'AIzaSyByEPD3eYaU1D0kKk4E6FOGeHYetzEKPsE',
+          authDomain: 'tiktoknews-68149.firebaseapp.com',
+          databaseURL: 'https://tiktoknews-68149.firebaseio.com',
+          projectId: 'tiktoknews-68149',
+          storageBucket: 'storageBucket',
+          messagingSenderId: '965967556687',
+          appId: '1:965967556687:web:64241d6ebf208b18acfa3a',
+        },
+      },
+    },
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     {

@@ -151,3 +151,51 @@ img:hover {
   -webkit-transform: none;
   -ms-transform: none;
 }
+
+.container-footer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.d-flex {
+  display: flex;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.align-items-center {
+  align-items: center;
+}
+.mb-50 {
+  margin-bottom: 50px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+.ml-5 {
+  margin-left: 5px;
+}
+
+footer {
+  padding: 20px 0;
+}
+footer {
+  background-color: #FE2C55;
+}
+footer a,
+footer i {
+  color: #fff;
+}
+footer a:hover,
+footer a:hover i {
+  color: #fff;
+}
+

@@ -35,6 +35,25 @@ const Layout = ({ children }) => {
         <Nav />
         <main style={{marginTop: '40px'}}>{children}</main>
       </Container>
+      <footer>
+      <div class="container-footer">
+        <div class="d-flex justify-content-between mb-50">
+          <div>
+            <p class="mb-15"><a href="/">About Us</a></p>
+        <p class="mb-15"><a href="/">Search</a></p>
+        <p><a href="/">Contact Information</a></p>
+      </div>
+      <div>
+        <p class="mb-15"><a href="/">Site Map</a></p>
+        <p class="mb-15"><a href="/">Private Policy</a></p>
+        <p><a href="/">Terms of Use</a></p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+      <p class="ml-5" style={{color:'white'}}>Copyright 2020. All rights reserved.</p>
+    </div>
+</div>
+</footer>
       {/* <BottomNavigation style={{position: 'fixed', bottom: 0, width: '100%'}} showLabels value={value} className={classes.root}
       onChange={(event, newValue) => {
         setValue(newValue);

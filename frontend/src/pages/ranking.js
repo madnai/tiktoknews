@@ -1,13 +1,14 @@
-import React, {forwardRef} from "react"
-import Table from '@material-ui/core/Table';
+import React, {forwardRef, useEffect, useState} from "react"
+import CircularProgress from '@material-ui/core/CircularProgress';
+// import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
+// import Th from '@material-ui/core/Th';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Layout from "../components/layout"
-import MaterialTable from 'material-table';
+// import MaterialTable from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Check from '@material-ui/icons/Check';
@@ -25,10 +26,22 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'gatsby'
+import abbreviateNumber from '../utils/abbreviateNumber';
+import Grid from '@material-ui/core/Grid';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import MaterialTable from '../components/material-table';
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
 
-import "../assets/css/main.css"
+function RankingPage(props) {
+  var SI_SYMBOL = ["", "K", "M", "G", "T", "P", "E"];
 
-export default function RankingPage() {
+  const API_URL = 'http://localhost:3000/users'
   const Image =   <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />;
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -49,65 +62,64 @@ export default function RankingPage() {
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
-  const [state, setState] = React.useState({
-    columns: [
-      { title: '#', field: 'position', width: '60px'},
-      { title: 'Nazwa', field: 'avatar', width: '40px', render: rowData => <Avatar alt="Remy Sharp" src={rowData} /> },
-    { title: '', field: 'name'},
-      { title: 'Liczba obserwujących', field: 'subscribers', type: 'numeric' },
-      { title: 'Zaangażowanie', field: 'engagement'},
-     
-    ],
-    data: [
-      { position: 1, avatar: '/image/asdasd.jpg', name: 'Zosia', subscribers: 1987, birthCity: 63, engagement: '3.5%' },
-      {
-        position: 2,
-        name: 'Janusz',
-        avatar: 'Baran',
-        subscribers: 2017,
-        birthCity: 34,
-        engagement: '3.5%'
-      },
-      {
-        position: 3,
-        avatar: 'asdasd',
-        name: 'Baran',
-        subscribers: 2017,
-        birthCity: 34,
-      },
-      {
-        position: 4,
-        name: 'Baran',
-        avatar: 'asdasd',
-        subscribers: 2017,
-        birthCity: 34,
-      },
-      {
-        position: 5,
-        name: 'Baran',
-        avatar: 'asdasd',
-        subscribers: 2017,
-        birthCity: 34,
-      },
-      {
-        position: 6,
-        name: 'Baran',
-        avatar: 'asdasd',
-        subscribers: 2017,
-        birthCity: 34,
-      },
-    ],
-  });
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    loadData()
+  }, [])
 
+  const loadData = async () => {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+    setUsers(data);
+    setLoading(false);
+  }
+  
   return (
     <Layout>
-    <MaterialTable
-    icons={tableIcons}
-      title="Ranking 100 tiktokerów polska"
-      columns={state.columns}
-      data={state.data}
-      style={{marginTop: '100px'}}
-    />
+      {loading ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '100px' }}><CircularProgress /></div> : (
+        <>
+       <MobileView>
+          <TableContainer style={{ marginBottom: '70px' }}>
+            <Table  aria-label="simple table" style={{minWidth: '340'}}>
+              <Thead>
+                <Tr>
+                  <Th><span style={{fontSize: '1rem'}}>Pozycja</span></Th>
+                  <Th></Th> 
+                  <Th><span style={{fontSize: '1rem'}}>Nazwa</span></Th>
+                  <Th><span style={{fontSize: '1rem'}}>Obserwujacy</span></Th>
+                  <Th><span style={{fontSize: '1rem'}}>Suma polubień</span></Th>
+                  <Th><span style={{fontSize: '1rem'}}>Suma komentarzy</span></Th>
+                  <Th><span style={{fontSize: '1rem'}}>Zaangażowanie</span></Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {users.sort((a,b) => (a.fans > b.fans) ? -1 : 1).map((row, i) => (
+                  <Tr key={row.id}>
+                    <Td >
+                    {i + 1}
+                    </Td>
+                    <Td><Avatar src={row.covers[0]} /></Td>
+                    <Td><Link to={`/ranking/${row.uniqueId}`} style={{color: '#fe2c55', fontWeight: 'bold'}}>{row.uniqueId}</Link></Td>
+                    <Td>{abbreviateNumber(row.fans)}</Td>
+                    <Td>{abbreviateNumber(row.heart)}</Td>
+                    <Td>{row.totalComments[0] == undefined ? 'null' : abbreviateNumber(row.totalComments[0].Total)}</Td>
+                    <Td>{row.totalComments[0] == undefined ? 'null' : (((row.totalComments[0].Total + row.totalShares[0].Total + parseInt(row.heart)) / parseInt(row.totalViews[0].Total))  * 100).toFixed(2)}%</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table> 
+          </TableContainer>
+        </MobileView>
+        <BrowserView>
+          <MaterialTable users={users} />
+        </BrowserView>
+        </>
+    )}
+    
     </Layout>
   );
 }
+
+export default RankingPage;

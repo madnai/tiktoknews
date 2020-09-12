@@ -20,12 +20,16 @@ const useStyles = makeStyles({
   heart : {
     marginLeft: 'auto',
     bottom: 0
+  },
+  action: {
+    display: 'flex',
   }
 });
 
 const CardComponent = ({ article, page }) => {
   const [shadow, setShadow] = useState(1);
   const [viewCount, setViewCount] = useState(0);
+  const [voted, SetVoted] = useState(false)
   const onMouseOver = () => setShadow(6)
   const onMouseOut = () => setShadow(1)
   const classes = useStyles();
@@ -41,9 +45,13 @@ const CardComponent = ({ article, page }) => {
     } );
 
     const handleClick = () => {
-      setViewCount(viewCount + 1)
-      firebase.database().ref('/cos').child(article.node.strapiId).set(viewCount + 1)
-      console.log('klikniete')
+      SetVoted(true);
+      if(voted) {
+        return
+      } else {
+        setViewCount(viewCount + 1);
+        firebase.database().ref(`${page}`).child(article.node.strapiId).set(viewCount + 1)
+      }
     }
 
     useEffect(() => {
@@ -53,7 +61,7 @@ const CardComponent = ({ article, page }) => {
       setViewCount(newViews.val() === 1 ? 0 : newViews.val());
     };
         
-        let ref = firebase.database().ref('/cos').child(article.node.strapiId);
+        let ref = firebase.database().ref(`${page}`).child(article.node.strapiId);
         ref.on('value', snapshot => {
           const state = snapshot.val();
           setViewCount(state)
@@ -69,7 +77,7 @@ const CardComponent = ({ article, page }) => {
           className={classes.root}
           onMouseOver={onMouseOver}
           onMouseOut={onMouseOut}
-          elevation={shadow}>
+          elevation={0}>
         <Link to={`/${page}/${finalName}`} className="uk-link-reset">
           <CardMedia
             component="img"
@@ -78,11 +86,11 @@ const CardComponent = ({ article, page }) => {
             image={article.node.image.publicURL}
             title="Contemplative Reptile"
           />
-          <CardContent>
-            <Typography gutterBottom variant="body2" component="h6" style={{fontSize: '12px'}}>
+          <CardContent style={{padding: '16px 0px 0px 0px'}}>
+            {/* <Typography gutterBottom variant="body2" component="h6" style={{fontSize: '12px'}}>
               {formatter.format( new Date(article.node.published_at) )}
-            </Typography>
-            <Typography gutterBottom variant="body1" component="h6" style={{fontWeight: '600'}}>
+            </Typography> */}
+            <Typography gutterBottom variant="body1" component="h2" style={{fontWeight: '600', fontSize: '2rem'}}>
               {article.node.title}
             </Typography>
             <Typography gutterBottom style={{fontSize: '13px'}} color="textSecondary" component="p">
@@ -90,13 +98,12 @@ const CardComponent = ({ article, page }) => {
             </Typography>
           </CardContent>
         </Link>
-        <CardActions align="end">
-
-            <IconButton className={classes.heart} aria-label="add to favorites" onClick={(article) => handleClick(article)}>
+        {/* <CardActions className={classes.action}>
+          <IconButton className={classes.heart} aria-label="add to favorites" onClick={(article) => handleClick(article)}>
             {viewCount === 0 ? null : viewCount}
-              <FavoriteIcon style={{ color: '#fe2c55' }} />
-            </IconButton>
-          </CardActions>
+            <FavoriteIcon style={{ color: '#fe2c55' }} />
+          </IconButton>
+        </CardActions> */}
       </Card>
   )
 }

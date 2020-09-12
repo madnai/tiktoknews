@@ -1,4 +1,6 @@
 const accents = require('remove-accents');
+const fetch = require('node-fetch');
+fs = require('fs');
 
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -30,6 +32,21 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
+  const response = await fetch('http://localhost:3000/users');
+  const users = await response.json();
+  console.log('.................', users)
+  users.forEach((user, i) => {
+    if (user.uniqueId !== undefined) {
+      createPage({
+        path: `/ranking/${accents(user.uniqueId)}`,
+        component: require.resolve("./src/templates/userDetails.js"),
+        context: {
+          id: user.uniqueId,
+        }
+      })
+    }
+   
+  })
   // Create blog articles pages.
   const articles = result.data.articles.edges
   const tipy = result.data.tipy.edges

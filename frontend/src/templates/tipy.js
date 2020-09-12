@@ -29,16 +29,17 @@ const Tipy = ({ data }) => {
       <div>
         <div
           id="banner"
-          className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-padding uk-margin"
+          className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-light uk-padding uk-margin"
           data-src={article.image.publicURL}
           data-srcset={article.image.publicURL}
           data-uk-img
         >
-          <p style={{fontSize: '40px', color: 'white'}} >{article.title}</p>
-        </div>
+         </div>
 
-        <div className="uk-section">
+        <div className="uk-section" style={{padding: 0}}>
           <div className="uk-container uk-container-small">
+          <p style={{fontSize: '30px', color: 'black'}} >{article.title}</p>
+
             <ReactMarkdown source={article.content} />
             <p>
               <Moment format="MMM Do YYYY">{article.published_at}</Moment>

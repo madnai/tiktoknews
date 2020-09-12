@@ -1,3 +1,7 @@
+html {
+  color: black !important;
+}
+
 a {
   text-decoration: none !important;
 }
@@ -58,14 +62,15 @@ img:hover {
 
 .header-container {
   width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    height: 70px;
-    background: #ffffff;
-    border-bottom: 1px solid rgba(34,90,89,0.2);
-    z-index: 9;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 90px;
+  border-bottom: 1px solid rgba(34,90,89,0.2);
+  z-index: 9;
+  background-color: black;
+  color: white;
 }
 
 .header-container .header-content {
@@ -184,18 +189,43 @@ img:hover {
   margin-left: 5px;
 }
 
-footer {
-  padding: 20px 0;
-}
-footer {
-  background-color: #FE2C55;
-}
-footer a,
-footer i {
-  color: #fff;
-}
-footer a:hover,
-footer a:hover i {
-  color: #fff;
+.responsiveTable tbody tr {
+  border: 3px solid black !important;
+  margin-bottom: 10px !important;
 }
 
+footer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap; /*flex items will wrap onto multiple lines, from top to bottom.*/
+  padding: 20px;
+  background: black;
+  color: white;
+}
+.section-top {
+ display: flex; 
+ justify-content: center; /*items are centered along the line*/
+ padding: 20px 0;
+ }
+.section-bottom {
+  text-align: center;
+  padding: 15px 0;
+}
+.col {
+  margin: 0 15px;
+  width: 25% /*optional*/
+}
+@media all and (max-width: 600px) { /*style if screen size is <600px*/
+.section-top{
+    flex-direction: column;
+}    
+.col {
+  text-align: center;
+  width: 100%;
+  margin: 0
+}
+}
+
+.profile-button:hover {
+  color: white;
+}

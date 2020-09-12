@@ -29,7 +29,6 @@ const NewsPage = () => (
       render={data => (
         <div className="uk-section">
           <div className="uk-container uk-container-large">
-            <h3>News </h3>
             <ArticlesComponent page={'news'} articles={data.allStrapiArticle.edges} />
           </div>
         </div>

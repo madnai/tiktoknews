@@ -20,6 +20,22 @@ module.exports = {
     `gatsby-plugin-sass`,
     "gatsby-plugin-material-ui",
     {
+      resolve: 'gatsby-plugin-antd',
+      options: {
+        style: true
+      }
+  },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `rubik\:300,400,500,600,700`,
+          `roboto`
+        ],
+        display: 'swap'
+      }
+    },
+    {
       resolve: "gatsby-source-strapi",
       options: {
         apiURL: process.env.API_URL || "http://localhost:1337",
@@ -45,6 +61,18 @@ module.exports = {
           appId: '1:965967556687:web:64241d6ebf208b18acfa3a',
         },
       },
+    },
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/search/*`] },
+    },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /images/
+        }
+      }
     },
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",

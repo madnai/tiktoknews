@@ -11,6 +11,14 @@ import Seo from "./seo"
 import { Link } from "gatsby"
 import { makeStyles } from '@material-ui/core/styles';
 import { navigate } from 'gatsby';
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
+import { slide as Menu } from 'react-burger-menu'
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
   root: {
@@ -18,51 +26,115 @@ const useStyles = makeStyles({
   },
 });
 
+var styles = {
+  bmBurgerButton: {
+    position: 'absolute',
+    width: '36px',
+    height: '30px',
+    left: 'initial',
+    right: '36px',
+    top: '36px'
+  },
+  bmBurgerBars: {
+    background: '#373a47'
+  },
+  bmBurgerBarsHover: {
+    background: '#a90000'
+  },
+  bmCrossButton: {
+    position: 'absolute',
+    height: '54px',
+    width: '54px',
+    left: 'initial',
+    right: '30px',
+    top: '26px'
+  },
+  bmCross: {
+    // background: '#bdc3c7'
+  },
+  bmMenuWrap: {
+    position: 'fixed',
+    height: '100%'
+  },
+  bmMenu: {
+    background: '#fe2c55',
+    padding: '2.5em 1.5em 0',
+    fontSize: '1.15em',
+    display: 'flex'
+  },
+  bmMorphShape: {
+    fill: '#373a47'
+  },
+  bmItemList: {
+    color: '#b8b7ad',
+    padding: '0.8em',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flexDirection: 'column'
+  },
+  bmItem: {
+  },
+  bmOverlay: {
+    background: 'rgba(0, 0, 0, 0.3)'
+  }
+}
 const Layout = ({ children }) => {
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
+
+  const activeStyle = {
+    color: 'black',
+  }
 
   const handleClick = (e, name) => {
     e.preventDefault();
 
     navigate('/' + name)
   }
+  const menu = ['news', 'tipy', 'ranking'];
 
-  return (
+  return (<>
     <Box>
       <Container>
+        {isMobile && <div style={{ paddingBottom: '70px' }}>
+          <Menu styles={styles} right={true} width="100%" customCrossIcon={<img src="https://i.ibb.co/Zc7Wfr8/close.png" />} noTransition>
+            {menu.map((item, i) => {
+              return (<>
+                <Link to={`/${item}`} activeStyle={activeStyle} style={{ textDecoration: 'none', color: 'white', fontSize: '30px', fontWeight: 'bold', fontFamily: 'Rubik' }}>{item.charAt(0).toUpperCase() + item.slice(1)}</Link><br />
+              </>)
+            })}
+          </Menu>
+        </div>}
         <Seo />
         <Nav />
-        <main style={{marginTop: '40px'}}>{children}</main>
+        <BrowserView><main style={{ marginTop: '100px' }} >{children}</main></BrowserView>
+        <MobileView><main style={{ marginTop: '10px' }} >{children}</main></MobileView>
+
       </Container>
       <footer>
-      <div class="container-footer">
-        <div class="d-flex justify-content-between mb-50">
-          <div>
-            <p class="mb-15"><a href="/">About Us</a></p>
-        <p class="mb-15"><a href="/">Search</a></p>
-        <p><a href="/">Contact Information</a></p>
-      </div>
-      <div>
-        <p class="mb-15"><a href="/">Site Map</a></p>
-        <p class="mb-15"><a href="/">Private Policy</a></p>
-        <p><a href="/">Terms of Use</a></p>
-      </div>
-    </div>
-    <div class="d-flex align-items-center justify-content-center">
-      <p class="ml-5" style={{color:'white'}}>Copyright 2020. All rights reserved.</p>
-    </div>
-</div>
-</footer>
-      {/* <BottomNavigation style={{position: 'fixed', bottom: 0, width: '100%'}} showLabels value={value} className={classes.root}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}>
-          <BottomNavigationAction label="News"  onClick={(e) => handleClick(e, 'news')} icon={<LibraryBooksIcon style={{ color: 'black' }}/>} />
-          <BottomNavigationAction label="Tipy"  onClick={(e) => handleClick(e, 'tipy')} icon={<LibraryBooksIcon style={{ color: 'black' }}/>} />
-          <BottomNavigationAction label="Ranking" onClick={(e) => handleClick(e, 'ranking')} icon={<AssignmentIndIcon style={{ color: 'black' }}/>} />
-        </BottomNavigation> */}
-    </Box>
+        <section class="section-top">
+          <div class="col">
+            <img src="https://i.ibb.co/kxzsMRK/9.png" width="150px" />
+          </div>
+          <div class="col">
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</div>
+            <div>Lorem ipsum dolor sit amet.</div>
+            <div>Line 3</div>
+          </div>
+          <div class="col">
+            <div>Line 2</div>
+            <div>Line 3</div>
+          </div>
+          <div class="col">
+            <div>Line 2</div>
+          </div>
+        </section>
+        <section class="section-bottom">
+          <div>Tiktoknews nie jest powiązany z TikTok, Bytedance, Facebookiem, Instagramem ani Snapchatem. Nie przechowujemy żadnych filmów ani obrazów na naszych serwerach. Wszelkie prawa należą do ich odpowiednich właścicieli.</div><br />
+          <div>Copyright © 2020 tiktoknews.pl</div>
+        </section>
+        </footer>
+    </Box></>
   )
 }
 

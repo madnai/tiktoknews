@@ -6,3 +6,5 @@
 
 // You can delete this file if you're not using it
 import 'firebase/database';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './src/assets/css/main.css';

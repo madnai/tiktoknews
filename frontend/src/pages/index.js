@@ -7,10 +7,6 @@ import ArticlesComponent from "../components/articles"
 
 import "../assets/css/main.css"
 
-const IndexPage = () => (
-  <Layout>
-sdf
-  </Layout>
-)
+const IndexPage = () => <Layout>sdf</Layout>
 
 export default IndexPage

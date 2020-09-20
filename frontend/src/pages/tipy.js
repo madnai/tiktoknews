@@ -26,10 +26,13 @@ const TipyPage = () => (
           }
         }
       `}
-      render={data => (
+      render={(data) => (
         <div className="uk-section">
           <div className="uk-container uk-container-large">
-            <ArticlesComponent page={'tipy'} articles={data.allStrapiTipy.edges} />
+            <ArticlesComponent
+              page={"tipy"}
+              articles={data.allStrapiTipy.edges}
+            />
           </div>
         </div>
       )}

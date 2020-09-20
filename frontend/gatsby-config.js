@@ -20,45 +20,48 @@ module.exports = {
     `gatsby-plugin-sass`,
     "gatsby-plugin-material-ui",
     {
-      resolve: 'gatsby-plugin-antd',
+      resolve: "gatsby-plugin-antd",
       options: {
-        style: true
-      }
-  },
+        style: true,
+      },
+    },
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `rubik\:300,400,500,600,700`,
-          `roboto`
-        ],
-        display: 'swap'
-      }
+        fonts: [`rubik\:300,400,500,600,700`, `roboto`],
+        display: "swap",
+      },
     },
     {
       resolve: "gatsby-source-strapi",
       options: {
-        apiURL: process.env.API_URL || "http://localhost:1337",
+        apiURL: process.env.API_URL || "https://ttnewspl.herokuapp.com",
         contentTypes: [
           // List of the Content Types you want to be able to request from Gatsby.
           "article",
           "menu",
-          "tipy"
+          "tipy",
         ],
         queryLimit: 1000,
       },
     },
     {
-      resolve: 'gatsby-plugin-firebase',
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: "ttnewspl-gatsby",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-firebase",
       options: {
         credentials: {
-          apiKey: 'AIzaSyByEPD3eYaU1D0kKk4E6FOGeHYetzEKPsE',
-          authDomain: 'tiktoknews-68149.firebaseapp.com',
-          databaseURL: 'https://tiktoknews-68149.firebaseio.com',
-          projectId: 'tiktoknews-68149',
-          storageBucket: 'storageBucket',
-          messagingSenderId: '965967556687',
-          appId: '1:965967556687:web:64241d6ebf208b18acfa3a',
+          apiKey: "AIzaSyByEPD3eYaU1D0kKk4E6FOGeHYetzEKPsE",
+          authDomain: "tiktoknews-68149.firebaseapp.com",
+          databaseURL: "https://tiktoknews-68149.firebaseio.com",
+          projectId: "tiktoknews-68149",
+          storageBucket: "storageBucket",
+          messagingSenderId: "965967556687",
+          appId: "1:965967556687:web:64241d6ebf208b18acfa3a",
         },
       },
     },
@@ -67,12 +70,12 @@ module.exports = {
       options: { prefixes: [`/search/*`] },
     },
     {
-      resolve: 'gatsby-plugin-react-svg',
+      resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /images/
-        }
-      }
+          include: /images/,
+        },
+      },
     },
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",

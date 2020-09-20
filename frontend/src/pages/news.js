@@ -26,10 +26,13 @@ const NewsPage = () => (
           }
         }
       `}
-      render={data => (
+      render={(data) => (
         <div className="uk-section">
           <div className="uk-container uk-container-large">
-            <ArticlesComponent page={'news'} articles={data.allStrapiArticle.edges} />
+            <ArticlesComponent
+              page={"news"}
+              articles={data.allStrapiArticle.edges}
+            />
           </div>
         </div>
       )}

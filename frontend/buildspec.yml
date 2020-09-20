@@ -14,4 +14,4 @@ phases:
   post_build:
     commands:
       - pwd
-      - cd build && aws s3 sync . $S3_BUCKET 
+      - cd frontend && cd build && aws s3 sync . $S3_BUCKET 

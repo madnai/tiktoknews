@@ -13,4 +13,5 @@ phases:
       - cd frontend && npm run build
   post_build:
     commands:
-      - cd frontend/build && aws s3 sync . $S3_BUCKET 
+      - cd pwd
+      - cd build && aws s3 sync . $S3_BUCKET 
